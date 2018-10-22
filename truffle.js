@@ -1,3 +1,8 @@
+const env = require('./env');
+const WalletProvider = require('truffle-wallet-provider');
+const Wallet = require('ethereumjs-wallet');
+const devnetWallet = new Wallet(Buffer.from(env.pKey, 'hex'));
+
 module.exports = {
   // Solidity compiler configuration
   solc: {
@@ -8,9 +13,10 @@ module.exports = {
   },
   networks: {
     development: {
-      host: "localhost",
-      port: 8545,
-      gas: 6721975,
+      provider: function() {
+        return new WalletProvider(devnetWallet, env.rpcUrl);
+      },
+      gas: 4700000,
       network_id: "*", // Match any network id
     }
   }
