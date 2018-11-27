@@ -1,8 +1,8 @@
 const PlasmaChainManager = artifacts.require("./PlasmaChainManager");
 
 contract('PlasmaChainManager', function(accounts) {
-  it("should assert true", function(done) {
-    var plasmaChainManager = PlasmaChainManager.deployed();
+  it("should assert true", async function(done) {
+    var plasmaChainManager = await PlasmaChainManager.deployed();
     assert.isTrue(true);
     done();
   });

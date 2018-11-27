@@ -6,12 +6,18 @@ const minimist = require('minimist');
 
 const block = require("./block");
 const tx = require("./transaction");
-const config = require("./config");
+const config = require("./env");
 const geth = require("./geth");
 
 const initHttpServer = (http_port) => {
     const app = express();
     app.use(bodyParser.json());
+
+    // error handler
+    app.use((err, req, res, next) => {
+        console.log(err.stack);
+        res.status(500).send({success: false, error: 'Something wrong happened!'});
+    });
 
     // Block related
     app.get('/blocks', (req, res) => {
@@ -39,8 +45,12 @@ const initHttpServer = (http_port) => {
 
     // Deposit related
     app.post('/deposit', async (req, res) => {
-        await geth.deposit(req.body.address, req.body.amount);
-        res.send();
+        try {
+            await geth.deposit(req.body.address, req.body.amount);
+            res.send();
+        } catch (e) {
+            res.status(500).send({error: e.message});
+        }
     });
 
     // Withdrawal related
