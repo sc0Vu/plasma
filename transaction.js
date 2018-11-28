@@ -179,7 +179,7 @@ const isValidTransaction = async (tx, geth) => {
         let message = tx.toString(false);
         let index = getUTXOByIndex(tx.blkNum1, tx.txIndex1, tx.oIndex1);
         if (index !== -1 &&
-            await geth.isValidSignature(message, tx.sig1, utxo[index].owner)) {
+            geth.isValidSignature(message, tx.sig1, utxo[index].owner)) {
             denom += utxo[index].denom;
         } else {
             return false;
@@ -189,7 +189,7 @@ const isValidTransaction = async (tx, geth) => {
         let message = tx.toString(false);
         let index = getUTXOByIndex(tx.blkNum2, tx.txIndex2, tx.oIndex2);
         if (index !== -1 ||
-            await geth.isValidSignature(message, tx.sig2, utxo[index].owner)) {
+            geth.isValidSignature(message, tx.sig2, utxo[index].owner)) {
             denom += utxo[index].denom;
         } else {
             return false;

@@ -32,7 +32,7 @@ const signTransaction = async (message, address) => {
     return await web3.eth.sign(message, address);
 };
 
-const isValidSignature = async (message, signature, address) => {
+const isValidSignature = (message, signature, address) => {
     if (typeof signature !== 'string' && signature.langth !== 132) {
         throw new Error('Wrong signature!');
     } else {
