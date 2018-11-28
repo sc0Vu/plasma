@@ -8,6 +8,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.15.2",
+    "ethereumjs-util": "^6.0.0",
     "ethereumjs-wallet": "^0.6.2",
     "express": "~4.11.1",
     "ganache-cli": "^6.0.3",
