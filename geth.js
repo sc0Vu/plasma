@@ -40,9 +40,10 @@ const isValidSignature = (message, signature, address) => {
     }
     // const hash = await web3.eth.accounts.hashMessage(message);
     // const signer = await web3.eth.accounts.recover(hash, signature);
+    message = Buffer.from(message);
     const hash = utils.hashMessage(message);
-    const r = Buffer.from('0x' + signature.substr(0, 64), 'hex');
-	const s = Buffer.from('0x' + signature.substr(64, 64), 'hex');
+    const r = Buffer.from(signature.substr(0, 64), 'hex');
+	const s = Buffer.from(signature.substr(64, 64), 'hex');
     const v = parseInt(signature.substr(128, 2), 16);
     const signer = utils.recoverAddress(hash, v, r, s);
     return utils.removeHexPrefix(address.toLowerCase()) == utils.removeHexPrefix(signer.toLowerCase());
